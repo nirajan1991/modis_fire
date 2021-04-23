@@ -1,4 +1,10 @@
-#This script used MRT tool kit to preprocess MODIS fire product data
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr  7 17:21:25 2021
+This script used MRT tool kit to preprocess MODIS fire product data
+It uses MRT toolkit as I was used to it compared to pymodis 
+@author: Nirajan
+"""
 import os
 import glob
 import subprocess
@@ -9,8 +15,7 @@ datadir = 'G:\MODIS_fire_product\Downloads'
 mosaic_path = 'G:\MODIS_fire_product\Mosaicked'
 resample_path = 'G:\MODIS_fire_product\Mosaicked\Resampled'
 data_vars = ['MOD', 'MYD']
-#yaers = list(range(2017,2021))
-yaers = [2020]
+yaers = list(range(2017,2021))
 dyas = list(range(1,146,8)) #use 146 instead of 145
 #%%
 #first mosaic the data
@@ -24,19 +29,19 @@ for dt in data_vars:
             search_path = os.path.join(datadir,search_criteria)
             filelist = glob.glob(search_path)
 
-            #subprocess.run(set MRTDATADIR=C:\MRT\data)
             a = open("MOSAICINPUT.TXT", "w")
             for file in filelist:
                 a.write('%s\n'%file)
             a.close()
             a = None
+            
             print(os.path.join(mosaic_path,dt+'14A1_'+dy+'_Mosaic.hdf'))
             command = 'C:/MRT/bin/mrtmosaic.exe -i MOSAICINPUT.TXT -s "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 " -o ' + os.path.join(mosaic_path,dt+'14A1_'+dy+'_Mosaic.hdf')
             subprocess.run(command)
             time.sleep(5)
-            #break
-        #break
-    #break
+            
+        
+    
 os.remove("MOSAICINPUT.TXT")
 
 #%%
