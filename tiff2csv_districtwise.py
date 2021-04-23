@@ -121,7 +121,7 @@ for yr in yaers:
             
             driver = gdal.GetDriverByName('GTiff')
             outds = driver.Create(outfile, data_fire_mask.shape[1],\
-                                  data_fire_mask.shape[0], 1, gdal.GDT_Float32) 
+                                  data_fire_mask.shape[0], 1, gdal.GDT_Float32) #gdal saved only zeros when Interger was used so used float
             outds.SetProjection(proj)
             outds.SetGeoTransform(transform)
 
